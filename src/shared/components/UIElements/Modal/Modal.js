@@ -9,6 +9,14 @@ const ModalOverlay = props => {
             <header className={`modal_header ${props.headerClass}`}>
                 <h2>{props.header}</h2>
             </header>
+            <form onSubmit={props.onSubmit ? props.onSubmit : (event) => event.preventDefault}>
+                <div className={`modal__content ${props.contentClass}`}>
+                    {props.children}
+                </div>
+                <footer className={`modal__footer ${props.footerClass}`}>
+                    {props.footer}
+                </footer>
+            </form>
         </div>
     );
     ReactDOM.createPortal(content, document.getElementById('modal-hook'));
