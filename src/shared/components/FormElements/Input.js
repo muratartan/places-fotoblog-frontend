@@ -15,4 +15,4 @@ const Input = props => {
     </div>
 };
 
-export const Input;
+export default Input;
