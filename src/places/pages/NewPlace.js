@@ -4,10 +4,50 @@ import Input from '../../shared/components/FormElements/Input';
 import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../Util/validator';
 import './NewPlace.css';
 
+const formReducer = (state,action) => {
+    switch(action,type) {
+        case 'INPUT_CHANGE':
+            let formIsValid: true;
+            for (const inputId in state.inputs) {
+                if (inputId === action.inputId) {
+                    formIsValid = formIsValid && action.isValid
+                } else {
+                    formIsValid = formIsValid && state.inputs[inputId].isValid;
+                }
+            }
+            return {
+                ...state,
+                inputs: {
+                    ...state.inputs,
+                    [action.inputId]: {value: action.value, isValid: action.isValid}
+                },
+                isValid: formIsValid
+            }
+        default: 
+        return state;
+    }
+};
+
 const NewPlace = () => {
 
-    const titleInputHandler = useCallback((id, value, isValid) => { }, []);
-    const descriptionInputHandler = useCallback((id, value, isValid) => { }, []);
+   const [formState,dispatch] = useReducer(formReducer, {
+        inputs: {
+            title: {
+                value: '',
+                isValid: false
+            },
+            description: {
+                value: '',
+                isValid: false
+            }
+        },
+        isValid: false
+    });
+
+    const inputHandler = useCallback((id, value, isValid) => {
+        dispatch({type: 'INPUT_CHANGE' ,value: value, isValid: isValid, inputId: id})
+     }, []);
+    
 
     return <form className='place-form'>
         <Input
@@ -17,7 +57,7 @@ const NewPlace = () => {
             label='Title'
             validators={[VALIDATOR_REQUIRE()]}
             errorText='Please enter a valid title'
-            onInput={titleInputHandler} />
+            onInput={inputHandler} />
 
         <Input
             id='description'
@@ -25,7 +65,7 @@ const NewPlace = () => {
             label='Description'
             validators={[VALIDATOR_MINLENGTH(5)]}
             errorText='Please enter a valid description (at least % characters)'
-            onInput={descriptionInputHandler} />
+            onInput={inputHandler} />
     </form>
 };
 
