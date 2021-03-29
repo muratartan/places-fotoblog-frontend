@@ -2,12 +2,13 @@ import React, { useCallback, useReducer } from 'react';
 
 import Input from '../../shared/components/FormElements/Input';
 import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../Util/validator';
+import Button from '../../shared/components/FormElements/Button';
 import './NewPlace.css';
 
 const formReducer = (state,action) => {
-    switch(action,type) {
+    switch(action.type) {
         case 'INPUT_CHANGE':
-            let formIsValid: true;
+            let formIsValid = true;
             for (const inputId in state.inputs) {
                 if (inputId === action.inputId) {
                     formIsValid = formIsValid && action.isValid
@@ -66,6 +67,7 @@ const NewPlace = () => {
             validators={[VALIDATOR_MINLENGTH(5)]}
             errorText='Please enter a valid description (at least % characters)'
             onInput={inputHandler} />
+            <Button type='submit' disabled={!formState.isValid}>ADD PLACE</Button>
     </form>
 };
 
