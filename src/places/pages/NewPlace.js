@@ -49,8 +49,12 @@ const NewPlace = () => {
         dispatch({type: 'INPUT_CHANGE' ,value: value, isValid: isValid, inputId: id})
      }, []);
     
+     const placeSubmitHandler = event => {
+         event.preventDefault();
+         console.log(formState.inputs);  // sent this to backend later!!!
+     };
 
-    return <form className='place-form'>
+    return <form className='place-form' onSubmit={placeSubmitHandler}>
         <Input
             id='title'
             element="input"
