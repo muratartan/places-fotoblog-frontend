@@ -5,8 +5,8 @@ import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../Util/validator';
 import Button from '../../shared/components/FormElements/Button';
 import './NewPlace.css';
 
-const formReducer = (state,action) => {
-    switch(action.type) {
+const formReducer = (state, action) => {
+    switch (action.type) {
         case 'INPUT_CHANGE':
             let formIsValid = true;
             for (const inputId in state.inputs) {
@@ -20,18 +20,18 @@ const formReducer = (state,action) => {
                 ...state,
                 inputs: {
                     ...state.inputs,
-                    [action.inputId]: {value: action.value, isValid: action.isValid}
+                    [action.inputId]: { value: action.value, isValid: action.isValid }
                 },
                 isValid: formIsValid
             }
-        default: 
-        return state;
+        default:
+            return state;
     }
 };
 
 const NewPlace = () => {
 
-   const [formState,dispatch] = useReducer(formReducer, {
+    const [formState, dispatch] = useReducer(formReducer, {
         inputs: {
             title: {
                 value: '',
@@ -46,13 +46,13 @@ const NewPlace = () => {
     });
 
     const inputHandler = useCallback((id, value, isValid) => {
-        dispatch({type: 'INPUT_CHANGE' ,value: value, isValid: isValid, inputId: id})
-     }, []);
-    
-     const placeSubmitHandler = event => {
-         event.preventDefault();
-         console.log(formState.inputs);  // sent this to backend later!!!
-     };
+        dispatch({ type: 'INPUT_CHANGE', value: value, isValid: isValid, inputId: id })
+    }, []);
+
+    const placeSubmitHandler = event => {
+        event.preventDefault();
+        console.log(formState.inputs);  // sent this to backend later!!!
+    };
 
     return <form className='place-form' onSubmit={placeSubmitHandler}>
         <Input
@@ -71,7 +71,15 @@ const NewPlace = () => {
             validators={[VALIDATOR_MINLENGTH(5)]}
             errorText='Please enter a valid description (at least % characters)'
             onInput={inputHandler} />
-            <Button type='submit' disabled={!formState.isValid}>ADD PLACE</Button>
+        <Input
+            id='address'
+            element="input"
+            label='Address'
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText='Please enter a valid addresss'
+            onInput={inputHandler} />
+
+        <Button type='submit' disabled={!formState.isValid}>ADD PLACE</Button>
     </form>
 };
 
