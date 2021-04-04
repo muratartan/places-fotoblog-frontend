@@ -37,9 +37,7 @@ const DUMMY_PLACES = [
 const UpdatePlace = () => {
     const placeId = useParams().placeId;
 
-    const identifiedPlace = DUMMY_PLACES.find(p => p.id === placeId);
-
-   const [formState,inputHandler] = useForm({
+    const [formState,inputHandler,setFormData] = useForm({
         title: {
             value: '',
             isValid: false
@@ -48,7 +46,21 @@ const UpdatePlace = () => {
             value: '',
             isValid: false
         }
-    }, false)
+    }, false);
+
+    const identifiedPlace = DUMMY_PLACES.find(p => p.id === placeId);
+
+    setFormData({
+        title: {
+            value: identifiedPlace.title,
+            isValid: true
+        },
+        description: {
+            value: identifiedPlace.description,
+            isValid: true
+        }
+    },
+    true);
 
     const placeUpdateSubmitHandler = event => {
         event.preventDefault();

@@ -43,7 +43,7 @@ export const useForm = (initialInputs, initialFormValidity) => {
          inputId: id })
     }, []);
 
-    const setformData = useCallback((inputData,formValidity) => {
+    const setFormData = useCallback((inputData,formValidity) => {
         dispatch({
             type: 'SET_DATA',
             inputs: inputData,
@@ -51,5 +51,5 @@ export const useForm = (initialInputs, initialFormValidity) => {
         })
     }, []);
 
-    return [formState,inputHandler,setformData]
+    return [formState,inputHandler,setFormData]
 };
