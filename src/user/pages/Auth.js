@@ -10,7 +10,7 @@ import './Auth.css';
 const Auth = (props) => {
     const [isLoginMode, setIsLoginMode] = useState(true);
 
-    const [formState, inputHandler] = useForm({
+    const [formState, inputHandler, setFormData] = useForm({
         email: {
             value: '',
             isValid: false
@@ -27,6 +27,20 @@ const Auth = (props) => {
     };
 
     const switchModeHandler = () => {
+        if (!isLoginMode) {
+            setFormData( {
+                ...formState.inputs,
+                name: undefined
+            }, formState.inputs.email.isValid && formState.inputs.password.isValid)
+        } else {
+            setFormData({
+                ...formState.inputs,
+                name: {
+                    value: '',
+                    isValid: false
+                }
+            }, false)
+        }
         setIsLoginMode(prevMode => !prevMode)
     };
 
