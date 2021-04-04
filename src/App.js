@@ -7,7 +7,7 @@ import MainNavigation from './shared/components/navigation/MainNavigaton/MainNav
 import UserPlaces from './places/pages/UserPlaces';
 import UpdatePlace from './places/pages/UpdatePlace';
 import Auth from './user/pages/Auth';
-import AuthContext from './shared/context/auth-context';
+import {AuthContext} from './shared/context/auth-context';
 
 const App = () => {
    const [isLoggedIn,setIsLoggedIn] = useState(false);
@@ -43,8 +43,8 @@ const App = () => {
                   <Redirect to='/' />
                </Switch>
             </main>
-         </Router>)
-      </AuthContext.Provider>
+         </Router>
+      </AuthContext.Provider>)
 };
 
 export default App;
