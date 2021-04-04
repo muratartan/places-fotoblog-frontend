@@ -27,6 +27,11 @@ const PlaceItem = props => {
                <Map center={props.coordinates} zoom={16} />
             </div>
          </Modal>
+
+         <Modal header='Are you sure?' footerClass="place-item__modal-actions">
+            <p>Do you want to proceed and delete?</p>
+         </Modal>
+
          <li className='place-item'>
             <Card className='place-item__content'>
                <div className='place-item__image'>
