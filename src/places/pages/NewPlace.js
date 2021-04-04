@@ -10,7 +10,7 @@ import './Placeform.css';
 
 const NewPlace = () => {
 
-    useForm(
+   const [formState,inputHandler] = useForm(
         {
             title: {
                 value: '',
@@ -27,10 +27,6 @@ const NewPlace = () => {
         }, 
         false
     );
-
-    const inputHandler = useCallback((id, value, isValid) => {
-        dispatch({ type: 'INPUT_CHANGE', value: value, isValid: isValid, inputId: id })
-    }, []);
 
     const placeSubmitHandler = event => {
         event.preventDefault();
