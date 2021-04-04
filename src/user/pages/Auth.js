@@ -2,6 +2,7 @@ import React from 'react';
 
 import Card from '../../shared/components/UIElements/Card/Card';
 import Input from '../../shared/components/FormElements/Input';
+import Button from '../../shared/components/FormElements/Button';
 import {VALIDATOR_EMAIL, VALIDATOR_MINLENGTH} from '../../Util/validator';
 import {useForm} from '../../shared/hooks/form-hook';
 import './Auth.css';
@@ -30,7 +31,7 @@ const Auth = (props) => {
             label="E-mail" 
             validators={[VALIDATOR_EMAIL()]}
             errorText="please enter a valid email address"
-            onChange={inputHandler} />
+            onInput={inputHandler} />
              <Input 
             element="input" 
             id="password" 
@@ -38,8 +39,8 @@ const Auth = (props) => {
             label="Password" 
             validators={[VALIDATOR_MINLENGTH(5)]}
             errorText="please enter a valid password, at least 5 characters"
-            onChange={inputHandler} />
-
+            onInput={inputHandler} />
+            <Button type="submit" disabled={!formState.isValid}>LOGIN</Button>
         </form>
     </Card>
 };
