@@ -28,9 +28,18 @@ const Auth = (props) => {
             id="email" 
             type="email" 
             label="E-mail" 
-            validators={[VALIDATOR_EMAIL]}
-            errorText="please enter a valid email"
-            onChange={inputHandler}></Input>
+            validators={[VALIDATOR_EMAIL()]}
+            errorText="please enter a valid email address"
+            onChange={inputHandler} />
+             <Input 
+            element="input" 
+            id="password" 
+            type="password" 
+            label="Password" 
+            validators={[VALIDATOR_MINLENGTH(5)]}
+            errorText="please enter a valid password, at least 5 characters"
+            onChange={inputHandler} />
+
         </form>
     </Card>
 };
