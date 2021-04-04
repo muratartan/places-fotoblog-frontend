@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import Card from '../../shared/components/UIElements/Card/Card';
 import Input from '../../shared/components/FormElements/Input';
@@ -8,6 +8,7 @@ import {useForm} from '../../shared/hooks/form-hook';
 import './Auth.css';
 
 const Auth = (props) => {
+    const [isLoginMode,setIsLoginMode] = useState(true);
 
   const [formState, inputHandler] =  useForm({
         email: {
@@ -23,6 +24,10 @@ const Auth = (props) => {
     const authSubmitHandler = event => {
         event.preventDefault();
         console.log(formState.inputs)
+    };
+
+    const switchModeHandler = () => {
+        setIsLoginMode(prevMode => !prevMode)
     };
 
     return <Card className='authentication'>
@@ -45,8 +50,13 @@ const Auth = (props) => {
             validators={[VALIDATOR_MINLENGTH(5)]}
             errorText="please enter a valid password, at least 5 characters"
             onInput={inputHandler} />
-            <Button type="submit" disabled={!formState.isValid}>LOGIN</Button>
+            <Button type="submit" disabled={!formState.isValid}>
+                {isLoginMode ? 'LOGIN' : 'SIGNUP'}
+            </Button>
         </form>
+        <Button inverse onClick={switchModeHandler}>
+        SWITCH TO {isLoginMode ? 'SIGNUP' : 'LOGIN'}
+        </Button>
     </Card>
 };
 
