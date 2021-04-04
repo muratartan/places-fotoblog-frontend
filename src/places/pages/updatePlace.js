@@ -41,14 +41,14 @@ const UpdatePlace = () => {
 
    const [formState,inputHandler] = useForm({
         title: {
-            value: identifiedPlace.title,
-            isValid: true
+            value: '',
+            isValid: false
         },
         description: {
-            value: identifiedPlace.description,
-            isValid: true
+            value: '',
+            isValid: false
         }
-    }, true)
+    }, false)
 
     const placeUpdateSubmitHandler = event => {
         event.preventDefault();
